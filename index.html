@@ -141,6 +141,26 @@
                 display: block;
                 padding: 0.5rem 0;
             }
+
+            /* Estilos responsivos para patrocinadores */
+            .hero .patrocinadores {
+                bottom: 4rem;
+            }
+
+            .hero .patrocinadores img {
+                height: 3rem;
+            }
+        }
+
+        /* Estilos para os patrocinadores */
+        .hero .patrocinadores img {
+            filter: brightness(0.9) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+            transition: all 0.3s ease;
+        }
+
+        .hero .patrocinadores img:hover {
+            filter: brightness(1) drop-shadow(0 6px 8px rgba(0, 0, 0, 0.6));
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -160,12 +180,19 @@
         <!-- Menu de navegação -->
         <nav>
             <ul class="flex space-x-16">
-                <li><a href="agende.html" class="text-white hover:text-gray-300 transition-colors font-medium">Agende</a></li>
-                <li><a href="cursos.html" class="text-white hover:text-gray-300 transition-colors font-medium">Cursos</a></li>
-                <li><a href="obras.html" class="text-white hover:text-gray-300 transition-colors font-medium">Obras</a></li>
-                <li><a href="projeto-social.html" class="text-white hover:text-gray-300 transition-colors font-medium">Projeto Social</a></li>
+                <li><a href="agende.html" class="text-white hover:text-black transition-colors font-medium">Agende</a></li>
+                <li><a href="cursos.html" class="text-white hover:text-black transition-colors font-medium">Cursos</a></li>
+                <li><a href="obras.html" class="text-white hover:text-black transition-colors font-medium">Obras</a></li>
+                <li><a href="projeto-social.html" class="text-white hover:text-black transition-colors font-medium">Projeto Social</a></li>
             </ul>
         </nav>
+
+        <!-- Patrocinadores -->
+        <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2 z-20 flex items-center justify-center gap-8 md:gap-20">
+            <img src="imagens/tropical.png" alt="IC" class="h-16 md:h-24 opacity-90 filter drop-shadow-lg">
+            <img src="imagens/whitehead.png" alt="White Head Tattoo" class="h-16 md:h-24 opacity-90 filter drop-shadow-lg">
+            <img src="imagens/ava.png" alt="AVA" class="h-16 md:h-24 opacity-90 filter drop-shadow-lg">
+        </div>
     </section>
 
     <!-- Seção Galeria -->
@@ -292,7 +319,7 @@
             <p class="text-center text-white text-base flex items-center justify-center">
                 © 2025 Ivy Gabrielli | Produzido por: 
                 <a href="#" class="text-white hover:opacity-80 transition-opacity flex items-center">
-                    <img src="imagens/logoj3.png" alt="J3 Digital Mídia" class="inline-block h-8 ml-1 -mt-1">
+                    <img src="imagens/logoJ3.png" alt="J3 Digital Mídia" class="inline-block h-8 ml-1 -mt-1">
                 </a>
             </p>
         </div>
@@ -308,6 +335,27 @@
             menuBtn.querySelector('i').classList.toggle('fa-bars');
             menuBtn.querySelector('i').classList.toggle('fa-times');
         });
+
+        // Controle de cor dos links durante scroll
+        const menuLinks = document.querySelectorAll('nav a');
+        
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            
+            if (scrollPosition > heroHeight - 100) {
+                menuLinks.forEach(link => {
+                    link.classList.remove('text-white', 'hover:text-black');
+                    link.classList.add('text-black', 'hover:text-gray-700');
+                });
+            } else {
+                menuLinks.forEach(link => {
+                    link.classList.remove('text-black', 'hover:text-gray-700');
+                    link.classList.add('text-white', 'hover:text-black');
+                });
+            }
+        });
     </script>
 </body>
 </html>
+
