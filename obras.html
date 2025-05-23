@@ -125,6 +125,22 @@
             background: #171717;
             margin-top: 100vh;
         }
+        .sound-control {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 30;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .sound-control:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 <body class="bg-neutral-900 min-h-screen" style="font-family: 'Montserrat', sans-serif;">
@@ -149,10 +165,14 @@
             <img src="imagens/logoivy.png" alt="Ivy Gabrielli Logo" class="h-16 md:h-20">
         </div>
         <!-- Vídeo ocupando toda a área -->
-        <video autoplay muted loop playsinline>
+        <video autoplay muted loop playsinline id="hero-video">
             <source src="video/apresentacao.mp4" type="video/mp4">
             Seu navegador não suporta a exibição de vídeo.
         </video>
+        <!-- Botão de controle de som -->
+        <button class="sound-control" id="sound-control">
+            <i class="fas fa-volume-mute"></i>
+        </button>
         <!-- Overlay opcional para contraste do logo -->
         <div class="absolute inset-0 bg-black bg-opacity-20 pointer-events-none"></div>
     </section>
@@ -238,6 +258,23 @@
                 menuBtn.querySelector('i').classList.toggle('fa-times');
             });
         }
+
+        // Controle de Som
+        const video = document.getElementById('hero-video');
+        const soundControl = document.getElementById('sound-control');
+        const soundIcon = soundControl.querySelector('i');
+
+        soundControl.addEventListener('click', () => {
+            if (video.muted) {
+                video.muted = false;
+                soundIcon.classList.remove('fa-volume-mute');
+                soundIcon.classList.add('fa-volume-up');
+            } else {
+                video.muted = true;
+                soundIcon.classList.remove('fa-volume-up');
+                soundIcon.classList.add('fa-volume-mute');
+            }
+        });
     </script>
 </body>
 </html>
