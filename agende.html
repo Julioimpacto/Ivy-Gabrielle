@@ -8,8 +8,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
             font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
             background-color: #171717;
         }
         .form-container {
@@ -65,32 +74,129 @@
             background-color: #E6D5BE;
             border-color: #D4C4AD;
         }
+
+        /* Menu e Logo */
+        nav {
+            position: fixed;
+            top: 2rem;
+            right: 5%;
+            z-index: 20;
+            background: transparent;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+        }
+        nav ul {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            justify-content: flex-end;
+            margin-right: 2rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+        nav a:hover {
+            color: rgba(255,255,255,0.8);
+        }
+        .menu-mobile-btn {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1.5rem;
+            z-index: 30;
+            color: white;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 2rem;
+            padding: 0.5rem;
+            width: 3rem;
+            height: 3rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Mobile e Surface Duo */
+        @media (max-width: 767px) {
+            .menu-mobile-btn {
+                display: flex;
+            }
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                display: none;
+            }
+            nav.active {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+            nav a {
+                font-size: 2rem;
+                text-align: center;
+                display: block;
+                padding: 0.5rem 0;
+            }
+        }
+
+        /* Tablets e iPads */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            nav {
+                right: 5%;
+                max-width: 600px;
+            }
+            nav ul {
+                gap: 2rem;
+                justify-content: flex-end;
+                margin-right: 1.5rem;
+            }
+            nav a {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen bg-neutral-900">
-    <!-- Header com Logo -->
-    <header class="bg-neutral-900 py-6">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center">
-                <a href="index.html">
-                    <img src="imagens/logoivy.png" alt="Ivy Gabrielli Logo" class="h-16">
-                </a>
-                <nav>
-                    <ul class="flex space-x-8">
-                        <li>
-                            <a href="index.html" class="px-6 py-2 bg-[#F5E6D3] text-[#2d2d2d] border-2 border-[#E6D5BE] hover:bg-[#E6D5BE] hover:border-[#D4C4AD] transition-all duration-300 rounded-md font-medium flex items-center">
-                                <i class="fas fa-arrow-left mr-2"></i>
-                                Voltar ao Início
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <!-- Menu de navegação -->
+    <nav>
+        <ul class="flex space-x-16 list-none m-0 p-0">
+            <li><a href="index.html" class="text-white hover:text-black transition-colors font-medium text-[1.25rem]">Home</a></li>
+            <li><a href="agende.html" class="text-white hover:text-black transition-colors font-medium text-[1.25rem]">Agende</a></li>
+            <li><a href="cursos.html" class="text-white hover:text-black transition-colors font-medium text-[1.25rem]">Cursos</a></li>
+            <li><a href="obras.html" class="text-white hover:text-black transition-colors font-medium text-[1.25rem]">Obras</a></li>
+            <li><a href="projeto-social.html" class="text-white hover:text-black transition-colors font-medium text-[1.25rem]">Projeto Social</a></li>
+        </ul>
+    </nav>
+
+    <!-- Botão Menu Mobile -->
+    <button class="menu-mobile-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Logo -->
+    <div class="absolute top-8 left-8 z-20 md:top-12 md:left-12">
+        <img src="imagens/logoivy.png" alt="Ivy Gabrielli Logo" class="h-16 md:h-20">
+    </div>
 
     <!-- Formulário -->
-    <main class="container mx-auto px-4 py-12">
+    <main class="container mx-auto px-4 py-12 pt-32">
         <div class="max-w-3xl mx-auto form-container rounded-lg shadow-xl p-8">
             <h1 class="text-4xl font-bold text-center mb-8 text-neutral-800">Agende sua Tatuagem</h1>
             
@@ -202,6 +308,16 @@
     </footer>
 
     <script>
+        // Menu Mobile Toggle
+        const menuBtn = document.querySelector('.menu-mobile-btn');
+        const nav = document.querySelector('nav');
+        
+        menuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            menuBtn.querySelector('i').classList.toggle('fa-bars');
+            menuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+
         document.getElementById('agendamentoForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
